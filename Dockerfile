@@ -1,7 +1,7 @@
   
 FROM node:12
 
-WORKDIR /app
+WORKDIR /app/node-jwt
 
 COPY package*.json ./
 
