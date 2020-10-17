@@ -1,18 +1,20 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-
+const env = require('dotenv');
 
 // Settings
-app.set('port', process.env.PORT || 3000);
+env.config({path: __dirname + '/.env'}); //Configurando .ENV
+app.set('port', process.env.APP_PORT || 3000);
 
 // Middlewares
-app.use(morgan('dev'));
+( process.env.APP_DEBUG ) ? app.use(morgan('dev')) : '';
 app.use(express.json());
 
 // Routes
 // Creo un prefijo para la api que se llama URL/api/ y luego se le agrega el path de la ruta
-app.use('/api',require('./routes/user'));
+app.use('/api/users',require('./routes/user'));
+app.use('/api/posts',require('./routes/post'));
 
 app.listen(app.get('port'), () => {
     console.log('Sever on port: ' + app.get('port'));

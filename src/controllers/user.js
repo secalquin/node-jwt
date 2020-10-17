@@ -1,4 +1,6 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jwt-simple');
+const axios = require('axios');
+const moment = require('moment');
 const userController = {};
 
 
@@ -7,31 +9,42 @@ userController.index = async (req, res) => {
 };
 
 userController.login = async (req,res) => {
-    var username = req.body.user
-    var password = req.body.password
+    const { username, password } = req.body;
   
     if( !(username === 'prueba' && password === '1234') ){
         return res.status(401).send({
         error: 'Usuario o contraseña inválidos'
       })
     }
+    
+    const FetchDataUserExample = await axios.get('https://jsonplaceholder.typicode.com/users/1'); //Cree esta variable solo para retornar algún tipo de información de usuario.
+    var payload = FetchDataUserExample.data;
+        payload.iat = moment().unix();
+        payload.exp = moment().add(1,'hours').unix(); //
   
-    var tokenData = {
-      username: username
-      // ANY DATA
-    }
-  
-    var token = jwt.sign(tokenData, 'Secret Password', {
-       expiresIn: 60 * 60 * 24 // expires in 24 hours
-    })
+    var token = jwt.encode(payload, process.env.APP_KEY);
   
     res.json(
         {
-            user: tokenData,
+            user: payload,
             token: token,
             type: "bearer",
-            expire: 60 * 60 * 24
         });
+};
+
+userController.profile = async (req, res) => {
+  return res.json(req.user);
+}
+
+userController.ListMyPosts = async (req, res) => {
+    const { id } = req.user;
+    const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/${ id }/posts`);
+
+    res.json(data);
+};
+
+userController.NotFound = async (req, res) => {
+    res.status(404).json( { message: "Not Found" } );
 };
 
 module.exports = userController;

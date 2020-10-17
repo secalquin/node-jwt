@@ -5,7 +5,8 @@ const userMiddleware = require('../middlewares/user');
 
 router.get('/user', userController.index);
 router.get('/login',userController.login);
-router.get('/my-profile',[userMiddleware.checkToken],userController.profile);
-
+router.get('/my-profile',[ userMiddleware.checkToken ],userController.profile);
+router.get('/my-posts',[ userMiddleware.checkToken ],userController.ListMyPosts);
+router.get('*',userController.NotFound);
 
 module.exports = router;
