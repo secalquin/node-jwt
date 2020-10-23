@@ -4,6 +4,7 @@
   "description": "Oauth JWT Node",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "repository": {
@@ -22,5 +23,9 @@
     "jwt-simple": "^0.5.6",
     "moment": "^2.29.1",
     "axios": "^0.20.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^1.19.4"
   }
 }

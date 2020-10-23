@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const env = require('dotenv');
 
 // Settings
@@ -7,6 +8,7 @@ env.config({path: __dirname + '/.env'}); //Configurando .ENV
 app.set('port', process.env.APP_PORT || 3000);
 
 // Middlewares
+( process.env.APP_DEBUG ) ? app.use(morgan('dev')) : '';
 app.use(express.json());
 
 // Routes
@@ -17,4 +19,3 @@ app.use('/api/posts',require('./routes/post'));
 app.listen(app.get('port'), () => {
     console.log('Sever on port: ' + app.get('port'));
 });
-

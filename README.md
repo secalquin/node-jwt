@@ -4,7 +4,7 @@
  3. Ejecutamos " npm run dev " el cual ejecutará el proyecto en modo prueba. (Si está activo APP_DEBUG ejecutará morgan para pruebas de api). 
  
 ## Dependencias Utilizadas.
- - Morgan
+ - Morgan -> Dependencia de dev
  - Axios
  - Express
  - JWT-Simple
