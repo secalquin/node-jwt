@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const morgan = require('morgan');
 const env = require('dotenv');
 
 // Settings
@@ -18,3 +17,4 @@ app.use('/api/posts',require('./routes/post'));
 app.listen(app.get('port'), () => {
     console.log('Sever on port: ' + app.get('port'));
 });
+
