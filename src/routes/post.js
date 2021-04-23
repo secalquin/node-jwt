@@ -7,4 +7,5 @@ router.get('/:id', postController.findPostByID);
 router.get('/:id/comments', postController.getCommentsByPost);
 router.get('*', postController.NotFound);
 
+
 module.exports = router;
