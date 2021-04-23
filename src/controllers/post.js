@@ -8,9 +8,7 @@ postController.NotFound = async (req, res) => {
 postController.getAllPosts = async (req, res) => {
 
   const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
-  
   res.json(data);
-
 };
 
 postController.findPostByID = async (req, res) => {
